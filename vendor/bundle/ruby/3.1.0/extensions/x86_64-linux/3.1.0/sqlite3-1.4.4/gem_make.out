@@ -1,0 +1,79 @@
+current directory: /home/zap/Dev/voice-cloning-web/vendor/bundle/ruby/3.1.0/gems/sqlite3-1.4.4/ext/sqlite3
+/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20220719-20688-i7289n.rb extconf.rb
+checking for sqlite3.h... yes
+checking for pthread_create() in -lpthread... yes
+checking for -ldl... yes
+checking for sqlite3_libversion_number() in -lsqlite3... yes
+checking for rb_proc_arity()... yes
+checking for rb_integer_pack()... yes
+checking for sqlite3_initialize()... yes
+checking for sqlite3_backup_init()... yes
+checking for sqlite3_column_database_name()... yes
+checking for sqlite3_enable_load_extension()... yes
+checking for sqlite3_load_extension()... yes
+checking for sqlite3_open_v2()... yes
+checking for sqlite3_prepare_v2()... yes
+checking for sqlite3_int64 in sqlite3.h... yes
+checking for sqlite3_uint64 in sqlite3.h... yes
+creating Makefile
+
+current directory: /home/zap/Dev/voice-cloning-web/vendor/bundle/ruby/3.1.0/gems/sqlite3-1.4.4/ext/sqlite3
+make DESTDIR\= clean
+rm -f 
+rm -fr sqlite3_native.so false *.o  *.bak mkmf.log .*.time
+
+current directory: /home/zap/Dev/voice-cloning-web/vendor/bundle/ruby/3.1.0/gems/sqlite3-1.4.4/ext/sqlite3
+make DESTDIR\=
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.  -DHAVE_RB_PROC_ARITY -DHAVE_RB_INTEGER_PACK -DHAVE_SQLITE3_INITIALIZE -DHAVE_SQLITE3_BACKUP_INIT -DHAVE_SQLITE3_COLUMN_DATABASE_NAME -DHAVE_SQLITE3_ENABLE_LOAD_EXTENSION -DHAVE_SQLITE3_LOAD_EXTENSION -DHAVE_SQLITE3_OPEN_V2 -DHAVE_SQLITE3_PREPARE_V2 -DHAVE_TYPE_SQLITE3_INT64 -DHAVE_TYPE_SQLITE3_UINT64    -fPIC -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o aggregator.o -c aggregator.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.  -DHAVE_RB_PROC_ARITY -DHAVE_RB_INTEGER_PACK -DHAVE_SQLITE3_INITIALIZE -DHAVE_SQLITE3_BACKUP_INIT -DHAVE_SQLITE3_COLUMN_DATABASE_NAME -DHAVE_SQLITE3_ENABLE_LOAD_EXTENSION -DHAVE_SQLITE3_LOAD_EXTENSION -DHAVE_SQLITE3_OPEN_V2 -DHAVE_SQLITE3_PREPARE_V2 -DHAVE_TYPE_SQLITE3_INT64 -DHAVE_TYPE_SQLITE3_UINT64    -fPIC -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o backup.o -c backup.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.  -DHAVE_RB_PROC_ARITY -DHAVE_RB_INTEGER_PACK -DHAVE_SQLITE3_INITIALIZE -DHAVE_SQLITE3_BACKUP_INIT -DHAVE_SQLITE3_COLUMN_DATABASE_NAME -DHAVE_SQLITE3_ENABLE_LOAD_EXTENSION -DHAVE_SQLITE3_LOAD_EXTENSION -DHAVE_SQLITE3_OPEN_V2 -DHAVE_SQLITE3_PREPARE_V2 -DHAVE_TYPE_SQLITE3_INT64 -DHAVE_TYPE_SQLITE3_UINT64    -fPIC -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o database.o -c database.c
+database.c: In function ‘rb_sqlite3_open_v2’:
+database.c:43:9: warning: unused variable ‘flags’ [-Wunused-variable]
+   43 |   VALUE flags;
+      |         ^~~~~
+database.c: In function ‘exec_batch’:
+database.c:748:57: warning: passing argument 3 of ‘sqlite3_exec’ from incompatible pointer type [-Wincompatible-pointer-types]
+  748 |     status = sqlite3_exec(ctx->db, StringValuePtr(sql), hash_callback_function, callback_ary, &errMsg);
+      |                                                         ^~~~~~~~~~~~~~~~~~~~~~
+      |                                                         |
+      |                                                         int (*)(VALUE,  int,  char **, char **) {aka int (*)(long unsigned int,  int,  char **, char **)}
+In file included from ./sqlite3_ruby.h:25,
+                 from database.c:1:
+/usr/include/sqlite3.h:405:9: note: expected ‘int (*)(void *, int,  char **, char **)’ but argument is of type ‘int (*)(VALUE,  int,  char **, char **)’ {aka ‘int (*)(long unsigned int,  int,  char **, char **)’}
+  405 |   int (*callback)(void*,int,char**,char**),  /* Callback function */
+      |   ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+database.c:748:81: warning: passing argument 4 of ‘sqlite3_exec’ makes pointer from integer without a cast [-Wint-conversion]
+  748 |     status = sqlite3_exec(ctx->db, StringValuePtr(sql), hash_callback_function, callback_ary, &errMsg);
+      |                                                                                 ^~~~~~~~~~~~
+      |                                                                                 |
+      |                                                                                 VALUE {aka long unsigned int}
+/usr/include/sqlite3.h:406:3: note: expected ‘void *’ but argument is of type ‘VALUE’ {aka ‘long unsigned int’}
+  406 |   void *,                                    /* 1st argument to callback */
+      |   ^~~~~~
+database.c:750:57: warning: passing argument 3 of ‘sqlite3_exec’ from incompatible pointer type [-Wincompatible-pointer-types]
+  750 |     status = sqlite3_exec(ctx->db, StringValuePtr(sql), regular_callback_function, callback_ary, &errMsg);
+      |                                                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                         |
+      |                                                         int (*)(VALUE,  int,  char **, char **) {aka int (*)(long unsigned int,  int,  char **, char **)}
+/usr/include/sqlite3.h:405:9: note: expected ‘int (*)(void *, int,  char **, char **)’ but argument is of type ‘int (*)(VALUE,  int,  char **, char **)’ {aka ‘int (*)(long unsigned int,  int,  char **, char **)’}
+  405 |   int (*callback)(void*,int,char**,char**),  /* Callback function */
+      |   ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+database.c:750:84: warning: passing argument 4 of ‘sqlite3_exec’ makes pointer from integer without a cast [-Wint-conversion]
+  750 |     status = sqlite3_exec(ctx->db, StringValuePtr(sql), regular_callback_function, callback_ary, &errMsg);
+      |                                                                                    ^~~~~~~~~~~~
+      |                                                                                    |
+      |                                                                                    VALUE {aka long unsigned int}
+/usr/include/sqlite3.h:406:3: note: expected ‘void *’ but argument is of type ‘VALUE’ {aka ‘long unsigned int’}
+  406 |   void *,                                    /* 1st argument to callback */
+      |   ^~~~~~
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.  -DHAVE_RB_PROC_ARITY -DHAVE_RB_INTEGER_PACK -DHAVE_SQLITE3_INITIALIZE -DHAVE_SQLITE3_BACKUP_INIT -DHAVE_SQLITE3_COLUMN_DATABASE_NAME -DHAVE_SQLITE3_ENABLE_LOAD_EXTENSION -DHAVE_SQLITE3_LOAD_EXTENSION -DHAVE_SQLITE3_OPEN_V2 -DHAVE_SQLITE3_PREPARE_V2 -DHAVE_TYPE_SQLITE3_INT64 -DHAVE_TYPE_SQLITE3_UINT64    -fPIC -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o exception.o -c exception.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.  -DHAVE_RB_PROC_ARITY -DHAVE_RB_INTEGER_PACK -DHAVE_SQLITE3_INITIALIZE -DHAVE_SQLITE3_BACKUP_INIT -DHAVE_SQLITE3_COLUMN_DATABASE_NAME -DHAVE_SQLITE3_ENABLE_LOAD_EXTENSION -DHAVE_SQLITE3_LOAD_EXTENSION -DHAVE_SQLITE3_OPEN_V2 -DHAVE_SQLITE3_PREPARE_V2 -DHAVE_TYPE_SQLITE3_INT64 -DHAVE_TYPE_SQLITE3_UINT64    -fPIC -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o sqlite3.o -c sqlite3.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.  -DHAVE_RB_PROC_ARITY -DHAVE_RB_INTEGER_PACK -DHAVE_SQLITE3_INITIALIZE -DHAVE_SQLITE3_BACKUP_INIT -DHAVE_SQLITE3_COLUMN_DATABASE_NAME -DHAVE_SQLITE3_ENABLE_LOAD_EXTENSION -DHAVE_SQLITE3_LOAD_EXTENSION -DHAVE_SQLITE3_OPEN_V2 -DHAVE_SQLITE3_PREPARE_V2 -DHAVE_TYPE_SQLITE3_INT64 -DHAVE_TYPE_SQLITE3_UINT64    -fPIC -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o statement.o -c statement.c
+rm -f sqlite3_native.so
+gcc -shared -o sqlite3_native.so aggregator.o backup.o database.o exception.o sqlite3.o statement.o -L. -L/usr/lib64 -L. -Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1   -m64  -lruby -lsqlite3 -ldl -lpthread  -lsqlite3 -lm  -lc
+
+current directory: /home/zap/Dev/voice-cloning-web/vendor/bundle/ruby/3.1.0/gems/sqlite3-1.4.4/ext/sqlite3
+make DESTDIR\= install
+/usr/bin/mkdir -p . ./.gem.20220719-20688-5khqrt/sqlite3
+exit > .sitearchdir.-.sqlite3.time
+/usr/bin/install -c -m 0755 sqlite3_native.so ./.gem.20220719-20688-5khqrt/sqlite3
