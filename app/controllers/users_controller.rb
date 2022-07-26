@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
-    def index
+    def login
 
+    end
+    
+    def register
+    
     end
 
     def create
