@@ -1,1 +1,10 @@
-Hello world
+<h1>Dashboard</h1>
+
+<% if Current.user %>
+  Logged in as: <%=Current.user.email%><br>
+  <%= button_to "Sign Out", logout_path,  method: :delete %>
+<% else %>
+  Something went wrong. Please sign in again.
+  <%= link_to "Sign up", '/login' %>
+  <%= link_to "Sign in", '/register' %>
+<% end %>
