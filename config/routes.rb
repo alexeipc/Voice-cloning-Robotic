@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/register' => 'users#create'
 
   get '/dashboard' => 'dashboard#index'
+  get '/record' => 'dashboard#record'
 
   # root "articles#index"
 end
