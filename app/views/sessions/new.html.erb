@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<%= form_with url: '/login' do |f| %>
+<%= form_with url: login_path do |f| %>
   <%= f.label :Email %>
   <%= f.text_field :email %>
 
@@ -10,4 +10,4 @@
   <%= f.submit "Sign in" %>
 <% end %>
 
-Don't have an account, <%= link_to "Register", '/register' %>.
+Don't have an account, <%= link_to "Register", register_path %>.

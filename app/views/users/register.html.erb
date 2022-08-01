@@ -1,6 +1,6 @@
 <h1>Register</h1>
 
-<%= form_with model: @user, url: '/register' do |f|  %>
+<%= form_with model: @user, url: register_path do |f|  %>
     <%= f.label :email %>
     <%= f.text_field :email %>
 
@@ -13,4 +13,4 @@
     <%= f.submit "Sign Up" %>
 <% end %>
 
-Already have an account, <%= link_to 'Login', '/login' %>
+Already have an account, <%= link_to 'Login', login_path %>

@@ -5,9 +5,9 @@
   <% if @voice_status %>
     Voice status: <%= @voice_status %>
   <% end %>
-  <%= button_to "Sign Out", '/logout',  method: :delete %>
+  <%= button_to "Sign Out", logout_path,  method: :delete %>
 <% else %>
   Something went wrong. Please sign in again.
-  <%= link_to "Sign up", '/login' %>
-  <%= link_to "Sign in", '/register' %>
+  <%= link_to "Sign up", login_path %>
+  <%= link_to "Sign in", register_path %>
 <% end %>
