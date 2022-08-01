@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_user
 
-  add_flash_types :danger, :infor, :warning, :success
+  add_flash_types :danger_infor, :danger, :infor, :warning, :success
 
   def set_current_user
     if session[:user_id]

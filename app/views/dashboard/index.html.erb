@@ -1,35 +1,30 @@
 <h1>Dashboard</h1>
 
 <% if Current.user %>
-  Logged in as: <%=Current.user.email%><br>
+  Logged in as: <%=Current.user.email%></br>
+  Welcome <%=Current.user.firstname%> <%=Current.user.lastname%> </br>
   
   <%= button_to "Sign Out", logout_path,  method: :delete %>
 
   <h1>Change information</h1>
 
-  <%= form_with model: @user, url:'/change_user_infor' do |f|  %>
+  <%= form_with model: @user, url:'/change_user_infor' do |d|  %>
 
-    <%= f.label :first_name %>
-    <%= f.text_field :old_name %> </br>
+    <%= d.label :first_name %>
+    <%= d.text_field :first_name, :value => Current.user.firstname %> </br>
 
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %> </br>
+    <%= d.label :last_name %>
+    <%= d.text_field :last_name, :value => Current.user.lastname %> </br>
 
-    <%= f.label :password %>
-    <%= f.password_field :password %> </br>
+    <%= d.label :password %>
+    <%= d.password_field :password %> </br>
 
-    <%= f.submit "Change" %>
+    <%= d.submit "Change" %>
 
   <% end %>
 
   <h1>Change password</h1>
 
-  <% flash.each do |name, msg|%>
-    <div class="alert">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      <%= msg %>
-    </div>
-  <% end %>
 
   <%= form_with model: @user, url:'/change_user_password' do |f|  %>
 
@@ -43,14 +38,17 @@
     <%= f.password_field :new_password_confirmation %> </br>
 
     <%= f.submit "Change" %>
-
+    
   <% end %>
   <% flash.each do |name, msg|%>
     <div class="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      <%= msg %>
+    
+      <%=  msg %>
+
     </div>
-  <% end %>
+
+<% end %>
 
 <% else %>
   Something went wrong. Please sign in again.

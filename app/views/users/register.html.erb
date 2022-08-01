@@ -1,14 +1,20 @@
 <h1>Register</h1>
 
 <%= form_with model: @user, url: '/register' do |f|  %>
+    <%= f.label :firstname %>
+    <%= f.text_field :firstname %> </br>
+
+    <%= f.label :lastname %>
+    <%= f.text_field :lastname %> </br>
+
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.text_field :email %> </br>
 
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password %> </br>
 
     <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation %> </br>
 
     <%= f.submit "Sign Up" %>
 <% end %>
