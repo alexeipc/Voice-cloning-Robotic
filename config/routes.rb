@@ -13,5 +13,9 @@ Rails.application.routes.draw do
 
   get '/dashboard' => 'dashboard#index'
 
+
+  post '/change_user_password' => 'dashboard#change_password'
+  post '/change_user_infor' => 'dashboard#change_infor'
+
   # root "articles#index"
 end
