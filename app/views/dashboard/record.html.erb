@@ -1,2 +1,29 @@
 <h1>Record voice</h1>
+
+<p id="display-sentence">
+  Select a sentence to record
+</p>
+
+<table>
+  <% for i in 1..@sentences.length do %>
+    <%= content_tag :tr, class: "sentence", data: {content: @sentences[i - 1]} do %>
+      <td class="sentence-index">
+        Sentence <%= i %>
+      </td>
+      <td>
+        Status: <span class="status">not recorded</span>
+      </td>
+      <td>
+        <button class="record-button">
+          Record
+        </button>
+      </td>
+    <% end %>
+  <% end %>
+</table>
+
+<button id="submit" disabled>Submit</button>
+
+<%= link_to "Back", dashboard_path %>
+
 <%= javascript_include_tag :recorder %>

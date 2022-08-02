@@ -1,10 +1,20 @@
-require 'uri'
-require 'net/http'
-
-
 class DashboardController < ApplicationController
   def record
-    if not session[:user_id]
+    if session[:user_id]
+
+      @sentences = [
+        "This is sentence 1",
+        "This is sentence 2",
+        "This is sentence 3",
+        "This is sentence 4",
+        "This is sentence 5",
+        "This is sentence 6",
+        "This is sentence 7",
+        "This is sentence 8",
+        "This is sentence 9",
+        "This is sentence 10"
+      ]
+    else
       redirect_to '/login' 
     end
   end
@@ -24,9 +34,9 @@ class DashboardController < ApplicationController
   def get_voice_status
     begin
       response = @@resource["user-#{session[:user_id]}"].get
-      return "Recorded"
+      return true
     rescue
-      return "Not recorded"
+      return false
     end
   end
 end
