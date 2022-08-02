@@ -21,6 +21,15 @@
   let data = []
   let result
 
+  function check_finish() {
+    for (const s of statuses) {
+      if (s.textContent != STATUS_TYPES.RECORDED) {
+        submit_button.disabled = true
+        break
+      }
+    }
+  }
+
   recorder.addEventListener('dataavailable', e => data.push(e.data))
   recorder.addEventListener('stop', () => {
     const audio_data = new Blob(data, { type: 'audio/wav' })
@@ -29,6 +38,9 @@
     audio_elem.src = audio_src
     audio_elem.controls = true
     result.appendChild(audio_elem)
+
+
+    check_finish();
   })
 
   for (const sentence of sentences) {
@@ -56,12 +68,6 @@
           status.textContent = STATUS_TYPES.RECORDED
           button.textContent = 'Discard'
           submit_button.disabled = false
-          for (const s of statuses) {
-            if (s.textContent != STATUS_TYPES.RECORDED) {
-              submit_button.disabled = true
-              break
-            }
-          }
 
           recorder.stop()
           break
