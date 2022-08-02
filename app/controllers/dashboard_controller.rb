@@ -1,3 +1,7 @@
+require 'uri'
+require 'net/http'
+
+
 class DashboardController < ApplicationController
   def record
     if not session[:user_id]
@@ -6,14 +10,23 @@ class DashboardController < ApplicationController
   end
 
   def index
-    @voice_status = get_voice_status
-    if not session[:user_id]
+    if session[:user_id]
+      @voice_status = get_voice_status
+    else
       redirect_to '/login' 
     end
   end
 
   private
+  @@API_URL = ENV['API_URL'] || 'localhost:3000'
+  @@resource = RestClient::Resource.new @@API_URL
+
   def get_voice_status
-    return 'Not recorded'
+    begin
+      response = @@resource["user-#{session[:user_id]}"].get
+      return "Recorded"
+    rescue
+      return "Not recorded"
+    end
   end
 end

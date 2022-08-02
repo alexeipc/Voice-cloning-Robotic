@@ -2,9 +2,9 @@
 
 <% if Current.user %>
   Logged in as: <%= Current.user.email %><br>
-  <% if @voice_status %>
-    Voice status: <%= @voice_status %>
-  <% end %>
+  Voice status: <%= @voice_status %>
+  <%= link_to "Record voice", record_path %>
+  
   <%= button_to "Sign Out", logout_path,  method: :delete %>
 <% else %>
   Something went wrong. Please sign in again.
