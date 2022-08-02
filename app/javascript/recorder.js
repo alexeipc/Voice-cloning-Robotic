@@ -1,4 +1,4 @@
-(() => {
+(async () => {
   const display_sentence = document.querySelector('#display-sentence')
 
   const sentences = document.querySelectorAll('.sentence')
@@ -14,9 +14,27 @@
 
   const not_record_message = display_sentence.textContent
 
+  const media_stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+
+  const recorder = new MediaRecorder(media_stream)
+
+  let data = []
+  let result
+
+  recorder.addEventListener('dataavailable', e => data.push(e.data))
+  recorder.addEventListener('stop', () => {
+    const audio_data = new Blob(data, { type: 'audio/wav' })
+    const audio_src = URL.createObjectURL(audio_data)
+    const audio_elem = document.createElement('audio')
+    audio_elem.src = audio_src
+    audio_elem.controls = true
+    result.appendChild(audio_elem)
+  })
+
   for (const sentence of sentences) {
     const button = sentence.querySelector('.record-button')
     const status = sentence.querySelector('.status')
+    const result_audio = sentence.querySelector('.recorded-audio')
     button.addEventListener('click', () => {
       switch (status.textContent) {
         case STATUS_TYPES.NOT_RECORDED: {
@@ -26,6 +44,10 @@
           button.disabled = false
           button.textContent = 'Stop recording'
           submit_button.disabled = true
+
+          data = []
+          result = sentence.querySelector('.recorded-audio')
+          recorder.start()
           break
         }
         case STATUS_TYPES.RECORDING: {
@@ -40,6 +62,8 @@
               break
             }
           }
+
+          recorder.stop()
           break
         }
         case STATUS_TYPES.RECORDED: {
@@ -47,6 +71,10 @@
           status.textContent = STATUS_TYPES.NOT_RECORDED
           button.textContent = 'Record'
           submit_button.disabled = true
+          let child
+          while (child = result_audio.lastChild) {
+            result_audio.removeChild(child)
+          }
           break
         }
       }
