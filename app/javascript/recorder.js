@@ -6,6 +6,7 @@
   const results = document.querySelectorAll('.recorded-audio')
   const statuses = document.querySelectorAll('.status')
   const submit_button = document.querySelector('#submit')
+  const submit_file = document.querySelector('#voice')
 
   const segments = new Array(sentences.length)
 
@@ -27,33 +28,31 @@
   function check_finish() {
     for (const s of statuses) {
       if (s.textContent != STATUS_TYPES.RECORDED) {
-        submit_button.disabled = true
-        break
+        return
       }
     }
-  }
 
-  submit_button.addEventListener('click', () => {
+    submit_button.disabled = false
+
     const final_data = []
     for (const i of segments) {
       for (const j of i) {
         final_data.push(j)
       }
     }
+
     const audio_blob = new Blob(final_data, { type: 'audio/wav' })
 
-    const fd = new FormData()
-
-    fd.append('voice', audio_blob)
-
-    fetch('/record', {
-      method: 'POST',
-      body: fd,
-      headers: {
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-      },
+    const audio_file = new File([audio_blob], 'voice.wav', {
+      type: 'audio/wav',
+      lastModified: Date.now()
     })
-  })
+
+    const transfer = new DataTransfer()
+    transfer.items.add(audio_file)
+
+    submit_file.files = transfer.files
+  }
 
   recorder.addEventListener('dataavailable', e => data.push(e.data))
   recorder.addEventListener('stop', () => {
@@ -92,7 +91,6 @@
           for (const b of buttons) b.disabled = false
           status.textContent = STATUS_TYPES.RECORDED
           button.textContent = 'Discard'
-          submit_button.disabled = false
 
           recorder.stop()
           break

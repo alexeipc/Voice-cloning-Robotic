@@ -4,12 +4,13 @@
   Logged in as: <%= Current.user.email %><br>
   Voice status: <% if @voice_status %>
     Recorded
+    <%= button_to "Delete", record_path, method: :delete %>
   <% else %>
     Not recorded
+    <%= button_to "Record", record_path, method: :get %>
   <% end %>
-  <%= link_to "Record", record_path %>
   
-  <%= button_to "Sign Out", logout_path,  method: :delete %>
+  <%= button_to "Sign Out", logout_path, method: :delete %>
 <% else %>
   Something went wrong. Please sign in again.
   <%= button_to "Sign Out", logout_path,  method: :delete %>

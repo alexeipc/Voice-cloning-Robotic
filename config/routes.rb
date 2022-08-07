@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#index'
   get '/record' => 'dashboard#record'
   post '/record' => 'dashboard#submit_voice'
+  delete '/record' => 'dashboard#delete_voice'
 
   # root "articles#index"
 end

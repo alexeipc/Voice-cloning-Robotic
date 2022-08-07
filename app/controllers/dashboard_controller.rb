@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
         "This is sentence 2",
         "This is sentence 3",
         "This is sentence 4",
-        "This is sentence 5",
+        # "This is sentence 5",
         # "This is sentence 6",
         # "This is sentence 7",
         # "This is sentence 8",
@@ -19,11 +19,22 @@ class DashboardController < ApplicationController
     end
   end
 
+  def delete_voice
+    if session[:user_id]
+      puts "Deleting voice"
+      @@resource["user-#{session[:user_id]}"].delete
+      redirect_to '/dashboard'
+    else 
+      redirect_to '/login'
+    end
+  end
+
   def submit_voice
     if session[:user_id] 
       @@resource["user-#{session[:user_id]}"].put :voice => params[:voice]
+      redirect_to '/dashboard'
     else
-      render :nothing => true, :status => 401
+      redirect_to '/login'
     end
   end
 

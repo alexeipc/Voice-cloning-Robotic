@@ -24,7 +24,10 @@
   <% end %>
 </table>
 
-<button id="submit" disabled>Submit</button>
+<%= form_with url: record_path do |f| %>
+  <%= f.file_field :voice, hidden: true %>
+  <%= f.submit "Submit", id: 'submit', disabled: true %>
+<% end %>
 
 <%= link_to "Back", dashboard_path %>
 
