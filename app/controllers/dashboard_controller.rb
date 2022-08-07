@@ -40,19 +40,29 @@ class DashboardController < ApplicationController
   def change_infor
     @user = User.find_by(id: session[:user_id])
 
-    if @user.authenticate(params[:password])
+    current_time =  Time.new
 
-      @user[:firstname]= params[:first_name]
-      @user[:lastname] = params[:last_name]
+    
 
-      @user.save
-
-
-      redirect_to dashboard_path, success: "Congrat! Change name successfully"
+    if (@user[:updated_at] + 7 < current_time)
+    	
+    	redirect_to dashboard_path, danger: "Sorry, you are only about to change information once a week"	
     else
-      redirect_to dashboard_path
-      redirect_to dashboard_path, danger: "Wrong password LOL"
+    	if @user.authenticate(params[:password])
+
+      		@user[:firstname]= params[:first_name]
+      		@user[:lastname] = params[:last_name]
+
+      		@user.save
+
+
+      		redirect_to dashboard_path, success: "Congrat! Change name successfully"
+    	else
+      		redirect_to dashboard_path
+      		redirect_to dashboard_path, danger: "Wrong password LOL"
       
+    	end
+
     end
 
 
