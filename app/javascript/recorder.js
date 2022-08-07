@@ -3,8 +3,11 @@
 
   const sentences = document.querySelectorAll('.sentence')
   const buttons = document.querySelectorAll('.record-button')
+  const results = document.querySelectorAll('.recorded-audio')
   const statuses = document.querySelectorAll('.status')
   const submit_button = document.querySelector('#submit')
+
+  const segments = new Array(sentences.length)
 
   const STATUS_TYPES = {
     NOT_RECORDED: 'not recorded',
@@ -19,7 +22,7 @@
   const recorder = new MediaRecorder(media_stream)
 
   let data = []
-  let result
+  let recording_index
 
   function check_finish() {
     for (const s of statuses) {
@@ -30,6 +33,28 @@
     }
   }
 
+  submit_button.addEventListener('click', () => {
+    const final_data = []
+    for (const i of segments) {
+      for (const j of i) {
+        final_data.push(j)
+      }
+    }
+    const audio_blob = new Blob(final_data, { type: 'audio/wav' })
+
+    const fd = new FormData()
+
+    fd.append('voice', audio_blob)
+
+    fetch('/record', {
+      method: 'POST',
+      body: fd,
+      headers: {
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+    })
+  })
+
   recorder.addEventListener('dataavailable', e => data.push(e.data))
   recorder.addEventListener('stop', () => {
     const audio_data = new Blob(data, { type: 'audio/wav' })
@@ -37,8 +62,8 @@
     const audio_elem = document.createElement('audio')
     audio_elem.src = audio_src
     audio_elem.controls = true
-    result.appendChild(audio_elem)
-
+    results[recording_index].appendChild(audio_elem)
+    segments[recording_index] = data
 
     check_finish();
   })
@@ -58,7 +83,7 @@
           submit_button.disabled = true
 
           data = []
-          result = sentence.querySelector('.recorded-audio')
+          recording_index = sentence.getAttribute('data-index')
           recorder.start()
           break
         }

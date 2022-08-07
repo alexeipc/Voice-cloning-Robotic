@@ -8,14 +8,22 @@ class DashboardController < ApplicationController
         "This is sentence 3",
         "This is sentence 4",
         "This is sentence 5",
-        "This is sentence 6",
-        "This is sentence 7",
-        "This is sentence 8",
-        "This is sentence 9",
-        "This is sentence 10"
+        # "This is sentence 6",
+        # "This is sentence 7",
+        # "This is sentence 8",
+        # "This is sentence 9",
+        # "This is sentence 10"
       ]
     else
       redirect_to '/login' 
+    end
+  end
+
+  def submit_voice
+    if session[:user_id] 
+      @@resource["user-#{session[:user_id]}"].put :voice => params[:voice]
+    else
+      render :nothing => true, :status => 401
     end
   end
 

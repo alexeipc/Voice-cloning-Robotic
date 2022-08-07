@@ -6,7 +6,7 @@
 
 <table>
   <% for i in 1..@sentences.length do %>
-    <%= content_tag :tr, class: "sentence", data: {content: @sentences[i - 1]} do %>
+    <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
       <td class="sentence-index">
         Sentence <%= i %>
       </td>
