@@ -1,10 +1,17 @@
 <h1>Dashboard</h1>
 
 <% if Current.user %>
-  Logged in as: <%=Current.user.email%><br>
-  <%= button_to "Sign Out", logout_path,  method: :delete %>
+  Logged in as: <%= Current.user.email %><br>
+  Voice status: <% if @voice_status %>
+    Recorded
+    <%= button_to "Delete", record_path, method: :delete %>
+  <% else %>
+    Not recorded
+    <%= button_to "Record", record_path, method: :get %>
+  <% end %>
+  
+  <%= button_to "Sign Out", logout_path, method: :delete %>
 <% else %>
   Something went wrong. Please sign in again.
-  <%= link_to "Sign up", '/login' %>
-  <%= link_to "Sign in", '/register' %>
+  <%= button_to "Sign Out", logout_path,  method: :delete %>
 <% end %>
