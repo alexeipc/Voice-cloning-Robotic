@@ -1,20 +1,18 @@
 <h1>Dashboard</h1>
 
 <% if Current.user %>
-  Logged in as: <%=Current.user.email%></br>
-  Welcome <%=Current.user.firstname%> <%=Current.user.lastname%> </br>
+  <div class="alert alert-info m-3">Logged in as: <%=Current.user.email%></div>
+  <div class="alert alert-success m-3">Welcome <%=Current.user.firstname%> <%=Current.user.lastname%></div>
 
-  Voice status:
   <% if @voice_status %>
-    Recorded
-    <%= button_to "Delete", record_path, method: :delete %>
+    <div class="alert alert-primary m-3">Voice status: Recorded</div>
+    <%= button_to "Delete", record_path, method: :delete, class: "btn btn-warning" %>
   <% else %>
-    Not recorded
-    <%= button_to "Record", record_path, method: :get %>
+    <div class="alert alert-warning m-3">Voice status: Not ecorded</div>
+    <%= button_to "Record", record_path, method: :get, class: "btn btn-primary" %>
   <% end %>
 
-
-  <%= button_to "Sign Out", logout_path,  method: :delete %>
+  <%= button_to "Sign Out", logout_path,  method: :delete, class: "btn btn-danger" %>
 
   <h1>Change information</h1>
 
