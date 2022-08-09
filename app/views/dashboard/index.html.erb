@@ -28,7 +28,7 @@
 
 <div class="container-fluid">
     <div class="row m-2">
-      <div class="col-md-4 col-12 p-2">
+      <div class="col-lg-4 col-12 p-2">
         <div class="card p-2 h-100">
           <h2 class="card-title">Voices</h2>
           <% if @voice_status %>
@@ -54,11 +54,11 @@
         </div>
       </div>
       -->
-      <div class="col-md-8 col-12 p-2">
+      <div class="col-lg-8 col-12 p-2">
         <div class="card p-2 h-100">
           <h2 class="card-title">Account</h2>
             <div class="row m-2">
-              <div class="col-6">
+              <div class="col-md-6 col-12 p-2">
                 <h3>Change information</h3>
 
                   <%= form_with model: @user, url:'/change_user_infor' do |d|  %>
@@ -76,7 +76,7 @@
 
                   <% end %>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6 col-12 p-2">
                   <h3>Change password</h3>
                   <%= form_with model: @user, url:'/change_user_password' do |f|  %>
 
