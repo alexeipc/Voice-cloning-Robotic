@@ -1,34 +1,68 @@
-<h1>Record voice</h1>
+<nav class="navbar navbar-dark bg-dark sticky-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">AI Story Telling</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-start">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Voices</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Account</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<p id="display-sentence">
-  Select a sentence to record
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+    asadjsaj
+    </div>
+    <div class="col-6">
+      <h2>Your Voice</h2>
 
-<table>
-  <% for i in 1..@sentences.length do %>
-    <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
-      <td class="sentence-index">
-        Sentence <%= i %>
-      </td>
-      <td>
-        Status: <span class="status">not recorded</span>
-      </td>
-      <td>
-        <button class="record-button">
-          Record
-        </button>
-      </td>
-      <td class="recorded-audio">
-      </td>
-    <% end %>
-  <% end %>
-</table>
+            <table>
+        <% for i in 1..@sentences.length do %>
+          <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
+            <td class="sentence-index">
+              Sentence <%= i %>
+            </td>
+            <td>
+              Status: <span class="status">not recorded</span>
+            </td>
+            <td>
+              <button class="record-button">
+                Record
+              </button>
+            </td>
+            <td class="recorded-audio">
+            </td>
+          <% end %>
+        <% end %>
+      </table>
 
-<%= form_with url: record_path do |f| %>
-  <%= f.file_field :voice, hidden: true %>
-  <%= f.submit "Submit", id: 'submit', disabled: true %>
-<% end %>
+      <%= form_with url: record_path do |f| %>
+        <%= f.file_field :voice, hidden: true %>
+        <%= f.submit "Submit", id: 'submit', disabled: true %>
+      <% end %>
 
-<%= link_to "Back", dashboard_path %>
+      <%= link_to "Back", dashboard_path %>
 
-<%= javascript_include_tag :recorder %>
+      <%= javascript_include_tag :recorder %>
+
+    </div>
+  </div>
+</div>
+
