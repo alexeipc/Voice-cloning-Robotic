@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
   def delete_voice
     if session[:user_id]
       puts "Deleting voice"
-      @@resource["user-#{session[:user_id]}"].delete
+      user_resource.delete
       redirect_to '/dashboard'
     else 
       redirect_to '/login'
@@ -31,7 +31,7 @@ class DashboardController < ApplicationController
 
   def submit_voice
     if session[:user_id] 
-      @@resource["user-#{session[:user_id]}"].put :voice => params[:voice]
+      user_resource.put :voice => params[:voice]
       redirect_to '/dashboard'
     else
       redirect_to '/login'
@@ -46,16 +46,17 @@ class DashboardController < ApplicationController
     end
   end
 
-  private
-  @@API_URL = ENV['API_URL'] || 'localhost:3000'
-  @@resource = RestClient::Resource.new @@API_URL
-
   def get_voice_status
     begin
-      response = @@resource["user-#{session[:user_id]}"].get
+      response = user_resource.get
       return true
     rescue
       return false
     end
   end
+
+  private
+  def user_resource
+    return @@Resource["user-#{session[:user_id]}"]
+  end 
 end
