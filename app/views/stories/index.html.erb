@@ -1,0 +1,22 @@
+<h1>Stories</h1>
+
+<% @data.each do |data| %>       
+	<%= form_with model:@story, url:'/change_stories' do |f|  %>	
+		<%= data.title %>
+		<%= simple_format(data.content) %>  
+		<%= hidden_field_tag(:id, data.id) %>
+		<%= f.submit "Change" %>
+	<% end %>
+<% end %>
+
+
+
+
+<%= form_with model:@story, url:'/submit_story' do |f|  %>
+	<%= f.label :title %>   </br>
+  	<%= f.text_field :title, value: $story_title %> </br>
+
+  	<%= f.label :content %>           </br>
+	<%= f.text_area(:content, size: '50x10' , value: $story_description) %>        </br>
+	<%= f.submit "Submit" %>
+<% end %>
