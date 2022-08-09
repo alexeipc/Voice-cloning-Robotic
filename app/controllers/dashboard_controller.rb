@@ -33,7 +33,11 @@ class DashboardController < ApplicationController
       
       redirect_to dashboard_path, success: "Congrat! Change password successfully"
     else
-      redirect_to dashboard_path, danger: "Wrong password LOL"
+        if params[:new_password] == params[:new_password_confirmation]
+          redirect_to dashboard_path, danger: "New password confirm doesn't match"
+        else
+          redirect_to dashboard_path, danger: "Wrong old password"
+        end
     end
   end
 
