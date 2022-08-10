@@ -17,6 +17,59 @@ class DashboardController < ApplicationController
     else
       redirect_to '/login' 
     end
+
+  end
+
+  def change_password
+    @user = User.find_by(id: session[:user_id])
+
+    if (params[:new_password] == params[:new_password_confirmation]) && @user.authenticate(params[:old_password])
+      #Save to Database
+      
+      @user.password = params[:new_password]
+      @user.save
+
+      # Announce
+      
+      redirect_to dashboard_path, success: "Congrat! Change password successfully"
+    else
+        if params[:new_password] == params[:new_password_confirmation]
+          redirect_to dashboard_path, danger: "New password confirm doesn't match"
+        else
+          redirect_to dashboard_path, danger: "Wrong old password"
+        end
+    end
+  end
+
+  def change_infor
+    @user = User.find_by(id: session[:user_id])
+
+    current_time =  Time.new
+
+    
+
+    if (@user[:updated_at] + 7 < current_time)
+    	
+    	redirect_to dashboard_path, danger: "Sorry, you are only about to change information once a week"	
+    else
+    	if @user.authenticate(params[:password])
+
+      		@user[:firstname]= params[:first_name]
+      		@user[:lastname] = params[:last_name]
+
+      		@user.save
+
+
+      		redirect_to dashboard_path, success: "Congrat! Change name successfully"
+    	else
+      		redirect_to dashboard_path
+      		redirect_to dashboard_path, danger: "Wrong password LOL"
+      
+    	end
+
+    end
+
+
   end
 
   def delete_voice
