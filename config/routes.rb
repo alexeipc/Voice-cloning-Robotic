@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'reader/index'
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -20,5 +21,8 @@ Rails.application.routes.draw do
   post '/change_user_password' => 'dashboard#change_password'
   post '/change_user_infor' => 'dashboard#change_infor'
 
+  get '/read/' => 'reader#default'
+  get '/read/:story' => 'reader#index'
+  post '/read/:story' => 'reader#synthesize'
   # root "articles#index"
 end

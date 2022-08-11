@@ -1,0 +1,25 @@
+<h1>Reader#index</h1>
+<section>
+  <ul>
+    <% @stories.each do | key, story | %>
+      <li>
+        <%= link_to "#{story['title']}", "/read/#{key}"%>
+        (
+        <% if story['synthesized'] %>
+          Synthesized
+        <% else %>
+          Not Synthesized
+        <% end %>
+        )
+      </li>
+    <% end %>
+  </ul>
+</section>
+<section>
+  <h3><%= @title %></h3>
+  <p><%= @content %></p>
+  <% if @synthesized %>
+  <% else %>
+    <%= button_to "Synthesize", "/read/#{@id}" %>
+  <% end %>
+<section>
