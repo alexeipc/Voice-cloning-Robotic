@@ -25,44 +25,38 @@
   </div>
 </nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-6">
-    asadjsaj
-    </div>
-    <div class="col-6">
-      <h2>Your Voice</h2>
+      <h1 class="display-1 text-center">Your Voice</h1>
 
-            <table>
-        <% for i in 1..@sentences.length do %>
-          <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
-            <td class="sentence-index">
-              Sentence <%= i %>
-            </td>
-            <td>
-              Status: <span class="status">not recorded</span>
-            </td>
-            <td>
-              <button class="record-button">
-                Record
-              </button>
-            </td>
-            <td class="recorded-audio">
-            </td>
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+          <% for i in 1..@sentences.length do %>
+            <div class="col-md-5 col-12 p-2 text-center">
+              <div class="card p-2">
+              <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
+                <h2 class="display-5 sentence-index">
+                  Sentence <%= i %>
+                </h2>
+                <p>
+                  Status: <span class="status">not recorded</span>
+                </p>
+                  <button class="record-button btn btn-primary">
+                    Record
+                  </button>
+                <td class="recorded-audio">
+                </td>
+              <% end %>
+              </div>
+            </div>
           <% end %>
-        <% end %>
-      </table>
+          </div>
+      </div>
 
       <%= form_with url: record_path do |f| %>
         <%= f.file_field :voice, hidden: true %>
-        <%= f.submit "Submit", id: 'submit', disabled: true %>
+        <%= f.submit "Submit", id: 'submit', disabled: true, class: 'btn btn-success' %>
       <% end %>
 
-      <%= link_to "Back", dashboard_path %>
+      <%= link_to "Back", dashboard_path, class: 'btn btn-primary' %>
 
       <%= javascript_include_tag :recorder %>
-
-    </div>
-  </div>
-</div>
 
