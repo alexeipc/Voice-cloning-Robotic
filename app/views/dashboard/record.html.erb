@@ -26,26 +26,29 @@
 </nav>
 
       <h1 class="display-1 text-center">Your Voice</h1>
+      <p id="display-sentence">
+        Select a sentence to record
+      </p>
 
         <div class="container-fluid">
           <div class="row justify-content-center">
           <% for i in 1..@sentences.length do %>
             <div class="col-md-5 col-12 p-2 text-center">
-              <div class="card p-2">
-              <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
+              <%= content_tag :div, class: "sentence card p-2", data: {index: i - 1, content: @sentences[i - 1]} do %>
                 <h2 class="display-5 sentence-index">
                   Sentence <%= i %>
                 </h2>
                 <p>
                   Status: <span class="status">not recorded</span>
                 </p>
+                <div class="d-flex align-items-center justify-content-around">
                   <button class="record-button btn btn-primary">
                     Record
                   </button>
-                <td class="recorded-audio">
-                </td>
+                  <span class="recorded-audio">
+                  </span>
+                </div>
               <% end %>
-              </div>
             </div>
           <% end %>
           </div>
