@@ -10,9 +10,11 @@ class StoriesController < ApplicationController
 
 			$story_title = story[:title]
 			$story_description = story[:content]
+			$synthesized_version = ""
 		else
 			$story_title = ""
 			$story_description = ""
+			$synthesized_version = ""
 		end
 
 	end
