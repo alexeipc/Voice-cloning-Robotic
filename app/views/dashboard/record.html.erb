@@ -1,34 +1,31 @@
-<nav class="navbar navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+    <a class="navbar-brand" href="#">Voices</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">AI Story Telling</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav me-auto">
+        <%= link_to "Home", dashboard_path, class: 'nav-link active' %>
       </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-start">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Voices</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Account</a>
-          </li>
-        </ul>
+      <div class="navbar-nav text-right">
+        <%= button_to "Sign Out", logout_path,  method: :delete, class: "nav-link btn btn-danger" %>
       </div>
     </div>
   </div>
 </nav>
 
-      <h1 class="display-1 text-center">Your Voice</h1>
-      <p id="display-sentence">
-        Select a sentence to record
-      </p>
+      <div class="text-center">
+        <!-- <h1 class="display-1">Your Voice</h1> -->
+        <p id="display-sentence" class="display-5 mt-1">
+          Select a sentence to record
+        </p>
+
+        <%= form_with url: record_path do |f| %>
+          <%= f.file_field :voice, hidden: true %>
+          <%= f.submit "Submit", id: 'submit', disabled: true, class: 'btn btn-success' %>
+        <% end %>
+      </div>
 
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -41,25 +38,18 @@
                 <p>
                   Status: <span class="status">not recorded</span>
                 </p>
-                <div class="d-flex align-items-center justify-content-around">
-                  <button class="record-button btn btn-primary">
+                <div class="d-flex justify-content-center mb-3">
+                  <button class="d-block record-button btn btn-primary">
                     Record
                   </button>
-                  <span class="recorded-audio">
-                  </span>
+                </div>
+                <div class="recorded-audio">
                 </div>
               <% end %>
             </div>
           <% end %>
           </div>
       </div>
-
-      <%= form_with url: record_path do |f| %>
-        <%= f.file_field :voice, hidden: true %>
-        <%= f.submit "Submit", id: 'submit', disabled: true, class: 'btn btn-success' %>
-      <% end %>
-
-      <%= link_to "Back", dashboard_path, class: 'btn btn-primary' %>
 
       <%= javascript_include_tag :recorder %>
 
