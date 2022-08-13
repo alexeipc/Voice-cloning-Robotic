@@ -11,12 +11,11 @@ class ReaderController < ApplicationController
     if session[:user_id]
       @stories = get_user_stories
       story = @stories[params[:story]]
-      puts @stories
       if story
         @id = params[:story]
         @title = story['title']
         @content = story['content']
-        @synthesized = story['synthesized']
+        @status = story['status']
       else
         default
       end
@@ -28,6 +27,25 @@ class ReaderController < ApplicationController
   def synthesize
     if session[:user_id]
       puts synthesize_story params[:story]
+      redirect_to read_path
+    else
+      redirect_to login_path
+    end
+  end
+
+  def audio
+    if session[:user_id]
+      storyid = params[:story]
+      audio = synthesize_story storyid
+      render json: audio.body, headers: audio.headers
+    end
+  end
+
+  def delete
+    if session[:user_id]
+      storyid = params[:story]
+      response = @@Resource["user-#{session[:user_id]}/story-#{storyid}"].delete
+      redirect_to read_path
     else
       redirect_to login_path
     end
@@ -68,7 +86,7 @@ class ReaderController < ApplicationController
   def synthesize_story(storyid)
     begin
       response = @@Resource["user-#{session[:user_id]}/story-#{storyid}"].get
-      return JSON.parse response
+      return response
     rescue
       return nil
     end

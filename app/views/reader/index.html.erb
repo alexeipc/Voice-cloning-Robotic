@@ -3,14 +3,8 @@
   <ul>
     <% @stories.each do | key, story | %>
       <li>
-        <%= link_to "#{story['title']}", "/read/#{key}"%>
-        (
-        <% if story['synthesized'] %>
-          Synthesized
-        <% else %>
-          Not Synthesized
-        <% end %>
-        )
+        <%= link_to "#{story['title']}", "/read/#{key}" %>
+        <%= "(#{story['status']})" %>
       </li>
     <% end %>
   </ul>
@@ -18,7 +12,11 @@
 <section>
   <h3><%= @title %></h3>
   <p><%= @content %></p>
-  <% if @synthesized %>
+  <% if @status == "synthesized" %>
+    <%= audio_tag "/read/#{@id}/audio.wav", :controls => true %>
+    <%= button_to "Delete", "/read/#{@id}", method: :delete %> 
+  <% elsif @status == "synthesizing" %>
+    <p>Please wait while your story is being synthesized.</p>
   <% else %>
     <%= button_to "Synthesize", "/read/#{@id}" %>
   <% end %>
