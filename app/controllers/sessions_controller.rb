@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     if session[:user_id]
       redirect_to '/dashboard'
     elsif session[:admin_i]
-      redirect_to '/admin'
+      redirect_to admin
     end
   end
 
