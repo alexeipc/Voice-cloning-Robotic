@@ -17,15 +17,11 @@ Rails.application.routes.draw do
   post '/admin' => 'admin#create'
   delete '/adminlogout' => 'sessions#destroy'
 
-  # namespace :admin do 
-  #   resources: admin_controller
-  #   root to: "admin_dashboard#index"
-  # end
+  get '/admin_dashboard' => 'admin_dashboard#index'
 
   get '/dashboard' => 'dashboard#index'
   get '/record' => 'dashboard#record'
   post '/record' => 'dashboard#submit_voice'
   delete '/record' => 'dashboard#delete_voice'
 
-  # root "articles#index"
 end

@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
   def new
     if session[:user_id]
       redirect_to '/dashboard'
+    elsif session[:admin_i]
+      redirect_to '/admin'
     end
   end
 
