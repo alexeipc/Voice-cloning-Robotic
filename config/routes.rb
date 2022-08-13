@@ -15,9 +15,9 @@ Rails.application.routes.draw do
 
   get '/admin' => 'admin#login'
   post '/admin' => 'admin#create'
-  delete '/adminlogout' => 'sessions#destroy'
+  delete '/admin/logout' => 'admin#logout'
 
-  get '/admin_dashboard' => 'admin_dashboard#index'
+  get '/admin/dashboard' => 'admin#dashboard'
 
   get '/dashboard' => 'dashboard#index'
   get '/record' => 'dashboard#record'
