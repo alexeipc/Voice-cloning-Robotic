@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  # def index
+  #   @users = User.all
+  # end
+
   def register
     if session[:user_id]
       redirect_to '/dashboard'

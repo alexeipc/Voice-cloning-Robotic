@@ -13,11 +13,11 @@ class AdminController < ApplicationController
     else
       redirect_to admin_path
     end
-  end
+  end   # end of create
 
   def dashboard
     if session[:admin_id] == -1
-
+      @users = User.all
     else
       redirect_to admin_path
     end
