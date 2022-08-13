@@ -80,7 +80,7 @@
 
                   <% end %>
                   <% flash.each do |name, msg|%>
-                    <div class="alert">
+                    <div class="alert alert-<%= name %> mt-3">
                       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 
                       <%=  msg %>
@@ -113,5 +113,5 @@
   -->
 <% else %>
   Something went wrong. Please sign in again.
-  <%= button_to "Sign Out", logout_path,  method: :delete %>
+  <%= button_to "Sign Out", logout_path,  method: :delete, class: "btn btn-danger" %>
 <% end %>
