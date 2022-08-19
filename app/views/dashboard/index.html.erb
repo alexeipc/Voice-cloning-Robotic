@@ -1,16 +1,63 @@
 <h1>Dashboard</h1>
 
 <% if Current.user %>
-  Logged in as: <%= Current.user.email %><br>
-  Voice status: <% if @voice_status %>
+  Logged in as: <%=Current.user.email%></br>
+  Welcome <%=Current.user.firstname%> <%=Current.user.lastname%> </br>
+
+  Voice status:
+  <% if @voice_status %>
     Recorded
     <%= button_to "Delete", record_path, method: :delete %>
   <% else %>
     Not recorded
     <%= button_to "Record", record_path, method: :get %>
   <% end %>
-  
-  <%= button_to "Sign Out", logout_path, method: :delete %>
+
+
+  <%= button_to "Sign Out", logout_path,  method: :delete %>
+
+  <h1>Change information</h1>
+
+  <%= form_with model: @user, url:'/change_user_infor' do |d|  %>
+
+    <%= d.label :first_name %>
+    <%= d.text_field :first_name, :value => Current.user.firstname %> </br>
+
+    <%= d.label :last_name %>
+    <%= d.text_field :last_name, :value => Current.user.lastname %> </br>
+
+    <%= d.label :password %>
+    <%= d.password_field :password %> </br>
+
+    <%= d.submit "Change" %>
+
+  <% end %>
+
+  <h1>Change password</h1>
+
+
+  <%= form_with model: @user, url:'/change_user_password' do |f|  %>
+
+    <%= f.label :old_password %>
+    <%= f.password_field :old_password %> </br>
+
+    <%= f.label :new_password %>
+    <%= f.password_field :new_password %> </br>
+
+    <%= f.label :new_password_confirmation %>
+    <%= f.password_field :new_password_confirmation %> </br>
+
+    <%= f.submit "Change" %>
+
+  <% end %>
+  <% flash.each do |name, msg|%>
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+      <%=  msg %>
+
+    </div>
+  <% end %>
 <% else %>
   Something went wrong. Please sign in again.
   <%= button_to "Sign Out", logout_path,  method: :delete %>
