@@ -1,44 +1,14 @@
+<div class="container">
 <h1>Admin Dashboard</h1>
+<p>Find me in app/views/admin/dashboard.html.erb</p>
 
-<header class="main-content__header" role="banner">
-  <h2 class="main-content__page-title" id="page-title">
-      User
-  </h2>
-  <form class="search" role="search">
-  <input class="search__input" id="search" type="search" name="search" placeholder="Search user" value="">
-  <a class="search__clear-link" href="/admin/customers">
-      <title>Clear search</title>
-  </a>
-  </form>
-</header>
-
-<hr/>
-<table class="table table-bordered">
-  <thead class="table-active">
-    <th>ID</th>
-    <th>Email</th>
-    <th>Signed up at</th>
-  </thead>
-  <tbody>
-    <%= for user in @users do %>
-    <tr>
-      <td><%= user.id %></td>
-      <td><%= user.email %></td>
-      <td><%= user.created_at %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<div class='clearfix'></div>
-<hr>
-
-<p>
-  <%= button_to 'New user', method: :create %> 
-</p>
+<div class="btn-group">
+  <a class="btn btn-primary" href="/admin/dashboard">Dashboard</a>
+  <a class="btn btn-primary" href="/admin/users">Users</a>
+</div>
 
 <p>
   <%= button_to 'Sign out', admin_logout_path, method: :delete %>  
 </p>
-
+</div>
 

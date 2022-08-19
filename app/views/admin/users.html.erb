@@ -1,0 +1,72 @@
+<div class="container">
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+      Users
+  </h1>
+  <p>Find me in app/views/admin/users.html.erb</p>
+
+<div class="btn-group">
+  <a class="btn btn-primary" href="/admin/dashboard">Dashboard</a>
+  <a class="btn btn-primary" href="/admin/users">Users</a>
+</div>
+  
+ <!--  <hr/>
+ <form class="search" role="search">
+  <input class="search__input" id="search" type="search" name="search" placeholder="Search user" value="">
+  <a class="search__clear-link" href=@users>
+      <title>Clear search</title>
+  </a>
+  </form> -->
+
+</header>
+
+<hr/>
+ <!--   <table class="table table-bordered">
+      <thead class="table-active">
+        <th scope="col">ID</th>
+        <th scope="col">Email</th>
+        <th scope="col">Signed up at</th>
+        <th scope="col">Last signed in at</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete user</th>
+      </thead>
+      <tbody>
+        <%= @users.each do |user| %>
+        <tr class="js-table-row" tabindex="0" role="link" data-url="">
+          <td><%= user.id %></td>
+          <td><%= link_to user.email %></td>
+          <td><%= user.created_at.strftime("%d %b, %Y") %></td>
+          <td><%= user.updated_at.strftime("%d %b, %Y") %></td>
+          <th><%= link_to "Edit", admin_path(user), class: "btn btn-primary btn-md" %></th>
+          <td><%= link_to "Delete", admin_delete_path(user), method: :delete, data: { :id => user.id }, class: "btn btn-primary btn-md"  %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table> -->
+
+<%= @users.each do |hello| %>
+ <%= form_with model: @user, url: '/admin/users/delete' do |f| %>
+    <%= hello.email %>
+    <%= hidden_field_tag( :id, hello.id) %>
+    <%=f.submit "Delete"%>
+  <%end%>
+<%end%>
+
+
+<div class='clearfix'></div>
+<hr>
+
+<div class="row">
+<p>
+  <%= form_with model: @user, url: '/admin/users/new' do |f|  %>
+  <%= f.text_field :email %>
+  <%= f.password_field :password %>
+  <%= f.submit "Create user"%>
+  <%end%>
+</p>
+</div>
+
+<p>
+  <%= button_to 'Sign out', admin_logout_path, method: :delete %>  
+</p>
+</div>
