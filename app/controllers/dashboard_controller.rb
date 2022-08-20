@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
         # "This is sentence 10"
       ]
     else
-      redirect_to '/login' 
+      redirect_to login_path 
     end
 
   end
@@ -33,26 +33,40 @@ class DashboardController < ApplicationController
       
       redirect_to dashboard_path, success: "Congrat! Change password successfully"
     else
-      redirect_to dashboard_path, danger: "Wrong password LOL"
+        if params[:new_password] == params[:new_password_confirmation]
+          redirect_to dashboard_path, danger: "New password confirm doesn't match"
+        else
+          redirect_to dashboard_path, danger: "Wrong old password"
+        end
     end
   end
 
   def change_infor
     @user = User.find_by(id: session[:user_id])
 
-    if @user.authenticate(params[:password])
+    current_time =  Time.new
 
-      @user[:firstname]= params[:first_name]
-      @user[:lastname] = params[:last_name]
+    
 
-      @user.save
-
-
-      redirect_to dashboard_path, success: "Congrat! Change name successfully"
+    if (@user[:updated_at] + 7 < current_time)
+    	
+    	redirect_to dashboard_path, danger: "Sorry, you are only about to change information once a week"	
     else
-      redirect_to dashboard_path
-      redirect_to dashboard_path, danger: "Wrong password LOL"
+    	if @user.authenticate(params[:password])
+
+      		@user[:firstname]= params[:first_name]
+      		@user[:lastname] = params[:last_name]
+
+      		@user.save
+
+
+      		redirect_to dashboard_path, success: "Congrat! Change name successfully"
+    	else
+      		redirect_to dashboard_path
+      		redirect_to dashboard_path, danger: "Wrong password LOL"
       
+    	end
+
     end
 
 
@@ -62,18 +76,18 @@ class DashboardController < ApplicationController
     if session[:user_id]
       puts "Deleting voice"
       user_resource.delete
-      redirect_to '/dashboard'
+      redirect_to dashboard_path
     else 
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
   def submit_voice
     if session[:user_id] 
       user_resource.put :voice => params[:voice]
-      redirect_to '/dashboard'
+      redirect_to dashboard_path
     else
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
@@ -81,10 +95,11 @@ class DashboardController < ApplicationController
     if session[:user_id]
       @voice_status = get_voice_status
     else
-      redirect_to '/login' 
+      redirect_to login_path
     end
   end
 
+  private
   def get_voice_status
     begin
       response = user_resource.get
@@ -94,7 +109,6 @@ class DashboardController < ApplicationController
     end
   end
 
-  private
   def user_resource
     return @@Resource["user-#{session[:user_id]}"]
   end 
