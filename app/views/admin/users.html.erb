@@ -1,0 +1,122 @@
+<div class="container">
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+      Users
+  </h1>
+  <p>Find me in app/views/admin/users.html.erb</p>
+
+<div class="btn-group">
+  <a class="btn btn-primary" href="/admin/dashboard">Dashboard</a>
+  <a class="btn btn-primary" href="/admin/users">Users</a>
+</div>
+
+<hr>
+<h3 class="text-center"><%= pluralize(@users.count, "Result")%></h3>
+<%= render 'admin/form'%>
+
+</header>
+
+<hr/>
+ <!--   <table class="table table-bordered">
+      <thead class="table-active">
+        <th scope="col">ID</th>
+        <th scope="col">Email</th>
+        <th scope="col">Signed up at</th>
+        <th scope="col">Last signed in at</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete user</th>
+      </thead>
+      <tbody>
+        <%= @users.each do |user| %>
+        <tr class="js-table-row" tabindex="0" role="link" data-url="">
+          <td><%= user.id %></td>
+          <td><%= link_to user.email %></td>
+          <td><%= user.created_at.strftime("%d %b, %Y") %></td>
+          <td><%= user.updated_at.strftime("%d %b, %Y") %></td>
+          <th><%= link_to "Edit", admin_path(user), class: "btn btn-primary btn-md" %></th>
+          <td><%= link_to "Delete", admin_delete_path(user), method: :delete, data: { :id => user.id }, class: "btn btn-primary btn-md"  %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table> -->
+
+<!-- <% @users.each do |user| %>
+ <%= form_with model: @user, url: '/admin/users/delete' do |f| %>
+    <%= user.firstname %> 
+    <%= user.lastname %> 
+    <%= link_to user.email %>
+    <%= hidden_field_tag( :id, user.id) %>
+    <%=f.submit "Delete"%>
+  <%end%>
+  <hr>
+<%end%> -->
+
+<ul class="list-group" style="padding: 0em 10% 0em 10%;">
+    <li class="list-group-item" style="background-color: #428bca; border-color: #357ebd;; color: #fff;">
+        <div class="row">
+            <div class="col-md-1">
+                <b>ID</b>
+            </div>
+            <div class="col-md-3">
+                <b>User Firstname</b>
+            </div>
+            <div class="col-md-3">
+                <b>User Lastname</b>
+            </div>
+            <div class="col-md-3">
+                <b>Email</b>
+            </div>
+            <div class="col-md-1">
+                <b>Delete</b>
+            </div>
+        </div>
+    </li>
+    <% @users.each do |user| %>
+    <%= form_with model: @user, url: '/admin/users/delete' do |f| %>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-md-1">
+                <%= user.id %>
+            </div>
+            <div class="col-md-3">
+                <%= user.firstname %>
+            </div>
+            <div class="col-md-3">
+                <%= user.lastname %> 
+            </div>
+            <div class="col-md-3">
+                <%= link_to user.email %>
+            </div>
+            <div class="col-md-1">
+                <%=f.submit "Delete"%>
+                <%= hidden_field_tag( :id, user.id) %>
+            </div>
+        </div>
+    </li>
+      <%end%>
+    <% end %>
+</ul>
+<hr>
+
+<div class='clearfix'></div>
+
+<div class="row">
+<p>
+  <%= form_with model: @user, url: '/admin/users/new' do |f|  %>
+  <%= f.label :firstname %>
+  <%= f.text_field :firstname %>
+  <%= f.label :lastname %>
+  <%= f.text_field :lastname %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.submit "Create user"%>
+  <%end%>
+</p>
+</div>
+
+<p>
+  <%= button_to 'Sign out', admin_logout_path, method: :delete %>  
+</p>
+</div>
