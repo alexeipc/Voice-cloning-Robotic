@@ -1,34 +1,55 @@
-<h1>Record voice</h1>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Voices</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav me-auto">
+        <%= link_to "Home", dashboard_path, class: 'nav-link active' %>
+      </div>
+      <div class="navbar-nav text-right">
+        <%= button_to "Sign Out", logout_path,  method: :delete, class: "nav-link btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<p id="display-sentence">
-  Select a sentence to record
-</p>
+      <div class="text-center">
+        <!-- <h1 class="display-1">Your Voice</h1> -->
+        <p id="display-sentence" class="display-5 mt-1">
+          Select a sentence to record
+        </p>
 
-<table>
-  <% for i in 1..@sentences.length do %>
-    <%= content_tag :tr, class: "sentence", data: {index: i - 1, content: @sentences[i - 1]} do %>
-      <td class="sentence-index">
-        Sentence <%= i %>
-      </td>
-      <td>
-        Status: <span class="status">not recorded</span>
-      </td>
-      <td>
-        <button class="record-button">
-          Record
-        </button>
-      </td>
-      <td class="recorded-audio">
-      </td>
-    <% end %>
-  <% end %>
-</table>
+        <%= form_with url: record_path do |f| %>
+          <%= f.file_field :voice, hidden: true %>
+          <%= f.submit "Submit", id: 'submit', disabled: true, class: 'btn btn-success' %>
+        <% end %>
+      </div>
 
-<%= form_with url: record_path do |f| %>
-  <%= f.file_field :voice, hidden: true %>
-  <%= f.submit "Submit", id: 'submit', disabled: true %>
-<% end %>
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+          <% for i in 1..@sentences.length do %>
+            <div class="col-md-5 col-12 p-2 text-center">
+              <%= content_tag :div, class: "sentence card p-2", data: {index: i - 1, content: @sentences[i - 1]} do %>
+                <h2 class="display-5 sentence-index">
+                  Sentence <%= i %>
+                </h2>
+                <p>
+                  Status: <span class="status">not recorded</span>
+                </p>
+                <div class="d-flex justify-content-center mb-3">
+                  <button class="d-block record-button btn btn-primary">
+                    Record
+                  </button>
+                </div>
+                <div class="recorded-audio">
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          </div>
+      </div>
 
-<%= link_to "Back", dashboard_path %>
+      <%= javascript_include_tag :recorder %>
 
-<%= javascript_include_tag :recorder %>
