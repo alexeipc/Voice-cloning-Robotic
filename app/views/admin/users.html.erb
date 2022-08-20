@@ -9,14 +9,10 @@
   <a class="btn btn-primary" href="/admin/dashboard">Dashboard</a>
   <a class="btn btn-primary" href="/admin/users">Users</a>
 </div>
-  
- <!--  <hr/>
- <form class="search" role="search">
-  <input class="search__input" id="search" type="search" name="search" placeholder="Search user" value="">
-  <a class="search__clear-link" href=@users>
-      <title>Clear search</title>
-  </a>
-  </form> -->
+
+<hr>
+<h3 class="text-center"><%= pluralize(@users.count, "Result")%></h3>
+<%= render 'admin/form'%>
 
 </header>
 
@@ -44,22 +40,76 @@
       </tbody>
     </table> -->
 
-<%= @users.each do |hello| %>
+<!-- <% @users.each do |user| %>
  <%= form_with model: @user, url: '/admin/users/delete' do |f| %>
-    <%= hello.email %>
-    <%= hidden_field_tag( :id, hello.id) %>
+    <%= user.firstname %> 
+    <%= user.lastname %> 
+    <%= link_to user.email %>
+    <%= hidden_field_tag( :id, user.id) %>
     <%=f.submit "Delete"%>
   <%end%>
-<%end%>
+  <hr>
+<%end%> -->
 
+<ul class="list-group" style="padding: 0em 10% 0em 10%;">
+    <li class="list-group-item" style="background-color: #428bca; border-color: #357ebd;; color: #fff;">
+        <div class="row">
+            <div class="col-md-1">
+                <b>ID</b>
+            </div>
+            <div class="col-md-3">
+                <b>User Firstname</b>
+            </div>
+            <div class="col-md-3">
+                <b>User Lastname</b>
+            </div>
+            <div class="col-md-3">
+                <b>Email</b>
+            </div>
+            <div class="col-md-1">
+                <b>Delete</b>
+            </div>
+        </div>
+    </li>
+    <% @users.each do |user| %>
+    <%= form_with model: @user, url: '/admin/users/delete' do |f| %>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-md-1">
+                <%= user.id %>
+            </div>
+            <div class="col-md-3">
+                <%= user.firstname %>
+            </div>
+            <div class="col-md-3">
+                <%= user.lastname %> 
+            </div>
+            <div class="col-md-3">
+                <%= link_to user.email %>
+            </div>
+            <div class="col-md-1">
+                <%=f.submit "Delete"%>
+                <%= hidden_field_tag( :id, user.id) %>
+            </div>
+        </div>
+    </li>
+      <%end%>
+    <% end %>
+</ul>
+<hr>
 
 <div class='clearfix'></div>
-<hr>
 
 <div class="row">
 <p>
   <%= form_with model: @user, url: '/admin/users/new' do |f|  %>
+  <%= f.label :firstname %>
+  <%= f.text_field :firstname %>
+  <%= f.label :lastname %>
+  <%= f.text_field :lastname %>
+  <%= f.label :email %>
   <%= f.text_field :email %>
+  <%= f.label :password %>
   <%= f.password_field :password %>
   <%= f.submit "Create user"%>
   <%end%>

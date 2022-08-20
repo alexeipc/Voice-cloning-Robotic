@@ -31,6 +31,9 @@ class AdminController < ApplicationController
   def users
     if session[:admin_id] == -1
       @users = User.all
+
+      @query = User.ransack(params[:q])
+      # @users = @query.result(distinct: true)
     else
       redirect_to admin_path
     end
@@ -53,7 +56,6 @@ class AdminController < ApplicationController
   end
 
   def destroy
-    p "hello"
     @user = User.find(params[:id])
     @user.destroy
     @user.save
@@ -74,7 +76,7 @@ class AdminController < ApplicationController
 
   private 
   def user_params
-    params.permit(:email, :password)
+    params.permit(:firstname, :lastname, :email, :password)
   end
 
 end

@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   post '/admin/users' => 'admin#create'
   post '/admin/users/delete' => 'admin#destroy', :as => :admin_delete
   post '/admin/users/new' => 'admin#new', :as => :admin_create
-  #match 'admin/users/:id' => 'admin#destroy', :via => :delete, :as => :admin_delete
 
   get '/dashboard' => 'dashboard#index'
   get '/record' => 'dashboard#record'
