@@ -8,6 +8,7 @@
   <% if @voice_status %>
     Recorded
     <%= button_to "Delete", record_path, method: :delete %>
+    <%= button_to "Read stories", read_path, method: :get %>
   <% else %>
     Not recorded
     <%= button_to "Record", record_path, method: :get %>

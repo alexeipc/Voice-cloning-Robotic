@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
         # "This is sentence 10"
       ]
     else
-      redirect_to '/login' 
+      redirect_to login_path 
     end
 
   end
@@ -76,18 +76,18 @@ class DashboardController < ApplicationController
     if session[:user_id]
       puts "Deleting voice"
       user_resource.delete
-      redirect_to '/dashboard'
+      redirect_to dashboard_path
     else 
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
   def submit_voice
     if session[:user_id] 
       user_resource.put :voice => params[:voice]
-      redirect_to '/dashboard'
+      redirect_to dashboard_path
     else
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
@@ -95,10 +95,11 @@ class DashboardController < ApplicationController
     if session[:user_id]
       @voice_status = get_voice_status
     else
-      redirect_to '/login' 
+      redirect_to login_path
     end
   end
 
+  private
   def get_voice_status
     begin
       response = user_resource.get
@@ -108,7 +109,6 @@ class DashboardController < ApplicationController
     end
   end
 
-  private
   def user_resource
     return @@Resource["user-#{session[:user_id]}"]
   end 
