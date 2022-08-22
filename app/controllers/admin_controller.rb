@@ -30,10 +30,10 @@ class AdminController < ApplicationController
 
   def users
     if session[:admin_id] == -1
-      @users = User.all
+      # @users = User.all
 
       @query = User.ransack(params[:q])
-      # @users = @query.result(distinct: true)
+      @users = @query.result(distinct: true)
     else
       redirect_to admin_path
     end

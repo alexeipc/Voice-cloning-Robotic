@@ -1,64 +1,101 @@
-<h1>Dashboard</h1>
-
 <% if Current.user %>
-  Logged in as: <%=Current.user.email%></br>
-  Welcome <%=Current.user.firstname%> <%=Current.user.lastname%> </br>
-
-  Voice status:
-  <% if @voice_status %>
-    Recorded
-    <%= button_to "Delete", record_path, method: :delete %>
-  <% else %>
-    Not recorded
-    <%= button_to "Record", record_path, method: :get %>
-  <% end %>
-
-
-  <%= button_to "Sign Out", logout_path,  method: :delete %>
-
-  <h1>Change information</h1>
-
-  <%= form_with model: @user, url:'/change_user_infor' do |d|  %>
-
-    <%= d.label :first_name %>
-    <%= d.text_field :first_name, :value => Current.user.firstname %> </br>
-
-    <%= d.label :last_name %>
-    <%= d.text_field :last_name, :value => Current.user.lastname %> </br>
-
-    <%= d.label :password %>
-    <%= d.password_field :password %> </br>
-
-    <%= d.submit "Change" %>
-
-  <% end %>
-
-  <h1>Change password</h1>
-
-
-  <%= form_with model: @user, url:'/change_user_password' do |f|  %>
-
-    <%= f.label :old_password %>
-    <%= f.password_field :old_password %> </br>
-
-    <%= f.label :new_password %>
-    <%= f.password_field :new_password %> </br>
-
-    <%= f.label :new_password_confirmation %>
-    <%= f.password_field :new_password_confirmation %> </br>
-
-    <%= f.submit "Change" %>
-
-  <% end %>
-  <% flash.each do |name, msg|%>
-    <div class="alert">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-      <%=  msg %>
-
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav text-right ms-auto">
+        <%= button_to "Sign Out", logout_path,  method: :delete, class: "nav-link btn btn-danger" %>
+      </div>
     </div>
-  <% end %>
+  </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row m-2">
+      <div class="col-lg-4 col-12 p-2">
+        <div class="card p-2 h-100">
+          <h2 class="card-title">Voices</h2>
+          <% if @voice_status %>
+            <div class="alert alert-primary">Voice: Recorded</div>
+          <% else %>
+            <div class="alert alert-warning">Voice: Not recorded.</div>
+          <% end %>
+          <p>Record your voice here</p>          
+          <% if @voice_status %>
+            <%= button_to "Read stories", read_path, method: :get, class: "btn btn-primary" %>
+            <%= link_to "Delete", record_path, method: :delete, class: "btn btn-danger" %>
+          <% else %>
+            <%= link_to "Record", record_path, method: :get, class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+      <!--
+      <div class="col-md-4 p-2">
+        <div class="card p-2 h-100">
+          <h2 class="card-title">Stories</h2>
+            <div class="alert alert-primary">You have created 2 stories.</div>
+          <p>Read story here</p>
+          <a href="#" class="btn btn-primary">Create Stories</a>
+        </div>
+      </div>
+      -->
+      <div class="col-lg-8 col-12 p-2">
+        <div class="card p-2 h-100">
+          <h2 class="card-title">Account</h2>
+            <div class="row m-2">
+              <div class="col-md-6 col-12 p-2">
+                <h3>Change information</h3>
+
+                  <%= form_with model: @user, url:'/change_user_infor' do |d|  %>
+
+                    <!-- <%= d.label :first_name %> -->
+                    <%= d.text_field :first_name, :value => Current.user.firstname, class: "form-control m-1 w-75", placeholder: "First name" %>
+
+                    <!-- <%= d.label :last_name %> -->
+                    <%= d.text_field :last_name, :value => Current.user.lastname, class: "form-control m-1 w-75", placeholder: "Last name" %>
+
+                    <!-- <%= d.label :password %> -->
+                    <%= d.password_field :password, class: "form-control m-1 w-75", placeholder: "Password confirmation" %> </br>
+
+                    <%= d.submit "Change", class: "btn btn-success mx-1" %>
+
+                  <% end %>
+                </div>
+                <div class="col-md-6 col-12 p-2">
+                  <h3>Change password</h3>
+                  <%= form_with model: @user, url:'/change_user_password' do |f|  %>
+
+                    <!-- <%= f.label :old_password %> -->
+                    <%= f.password_field :old_password, class: "form-control m-1 w-75", placeholder: "Old password" %>
+
+                    <!-- <%= f.label :new_password %> -->
+                    <%= f.password_field :new_password, class: "form-control m-1 w-75", placeholder: "New password" %>
+
+                    <!-- <%= f.label :new_password_confirmation %> -->
+                    <%= f.password_field :new_password_confirmation, class: "form-control m-1 w-75", placeholder: "New password confirmation" %> </br>
+
+                    <%= f.submit "Change",class: "btn btn-success" %>
+
+                  <% end %>
+                  <% flash.each do |name, msg|%>
+                    <div class="alert alert-<%= name %> mt-3">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+                      <%=  msg %>
+
+                    </div>
+                  <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
 <% else %>
   Something went wrong. Please sign in again.
-  <%= button_to "Sign Out", logout_path,  method: :delete %>
+  <%= button_to "Sign Out", logout_path,  method: :delete, class: "btn btn-danger" %>
 <% end %>

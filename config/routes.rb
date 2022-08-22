@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   get '/record' => 'dashboard#record'
   post '/record' => 'dashboard#submit_voice'
   delete '/record' => 'dashboard#delete_voice'
-
   post '/change_user_password' => 'dashboard#change_password'
   post '/change_user_infor' => 'dashboard#change_infor'
 
@@ -35,5 +34,9 @@ Rails.application.routes.draw do
   get '/stories' => 'stories#index'
   post '/change_stories'=> 'stories#change'
 
-  # root "articles#index"
+  get '/read/' => 'reader#default'
+  get '/read/:story' => 'reader#index'
+  post '/read/:story' => 'reader#synthesize'
+  delete '/read/:story' => 'reader#delete'
+  get '/read/:story/audio.wav' => 'reader#audio'
 end
