@@ -2,7 +2,7 @@ require 'json'
 
 class ReaderController < ApplicationController
   def default
-    id = get_stories[0]['id']
+    id = Story.first[:id]
     
     redirect_to "/read/#{id}"
   end
@@ -14,7 +14,7 @@ class ReaderController < ApplicationController
       if story
         @id = params[:story]
         @title = story['title']
-        @content = story['content']
+        @content = Story.find_by(id: @id)[:content]
         @status = story['status']
       else
         default
@@ -84,7 +84,7 @@ class ReaderController < ApplicationController
   end
 
   def synthesize_story(storyid)
-    begin
+      begin
       response = @@Resource["user-#{session[:user_id]}/story-#{storyid}"].get
       return response
     rescue
