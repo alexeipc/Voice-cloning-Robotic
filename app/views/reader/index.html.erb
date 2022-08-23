@@ -1,23 +1,64 @@
-<h1>Reader#index</h1>
-<section>
-  <ul>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Stories</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav me-auto">
+        <%= link_to "Home", dashboard_path, class: 'nav-link active' %>
+      </div>
+      <div class="navbar-nav text-right">
+        <%= button_to "Sign Out", logout_path,  method: :delete, class: "nav-link btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+<section class="col-4 my-3">
+    <div id="stories-list" class="list-group scrollbar-primary">
     <% @stories.each do | key, story | %>
-      <li>
-        <%= link_to "#{story['title']}", "/read/#{key}" %>
-        <%= "(#{story['status']})" %>
-      </li>
+      <% if key == @id %>
+        <%= link_to "/read/#{key}", :class => "list-group-item list-group-item-action active d-flex" do %>
+        <%= story['title'] %>
+        <% end %>
+      <% else %>
+        <%= link_to "/read/#{key}", :class => "list-group-item list-group-item-action d-flex" do %>
+        <%= story['title'] %>
+        <% if story['status'] == 'synthesized' %>
+        <span class="badge bg-success rounded-pill ms-auto">Synthesized</span>
+        <% elsif story['status'] == 'synthesizing' %>
+        <span class="badge bg-primary rounded-pill ms-auto">Synthesizing</span>
+        <% else %>
+        <span class="badge bg-none text-secondary rounded-pill ms-auto">Not synthesized</span>
+        <% end %>
+        <% end %>
+      <% end %>
     <% end %>
-  </ul>
+    </div>
 </section>
-<section>
-  <h3><%= @title %></h3>
-  <p><%= @content %></p>
+<section class="col-8 my-3">
+  <div class="card p-3 mx-1">
   <% if @status == "synthesized" %>
-    <%= audio_tag "/read/#{@id}/audio.wav", :controls => true %>
-    <%= button_to "Delete", "/read/#{@id}", method: :delete %> 
-  <% elsif @status == "synthesizing" %>
-    <p>Please wait while your story is being synthesized.</p>
+      <div class="alert alert-success">Story is synthesized.</div>
+  <% elsif @status == "not synthesized" %>
+      <div class="alert alert-secondary">Story is not synthesized.</div>
   <% else %>
-    <%= button_to "Synthesize", "/read/#{@id}" %>
+      <div class="alert alert-primary">Story is synthesizing.</div>
   <% end %>
+  <h3><%= @title %></h3>
+  <p><%= @content.html_safe %></p>
+  <% if @status == "synthesized" %>
+    <div class="d-flex m-auto">
+    <%= audio_tag "/read/#{@id}/audio.wav", :controls => true %>
+    <%= button_to "Delete", "/read/#{@id}", method: :delete, class: "btn btn-danger mx-3" %> 
+    </div>
+  <% elsif @status == "not synthesized" %>
+    <%= button_to "Synthesize", "/read/#{@id}", class: "btn btn-primary d-flex m-auto" %>
+  <% end %>
+  </div>
 <section>
+</div>
+</div>
