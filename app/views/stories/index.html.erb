@@ -1,0 +1,38 @@
+
+<div class="container">
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+      Stories
+  </h1>
+
+<div class="btn-group">
+  <a class="btn btn-primary" href="/admin/dashboard">Dashboard</a>
+  <a class="btn btn-primary" href="/admin/users">Users</a>
+  <a class="btn btn-primary" href="/stories">Stories</a>
+
+</div>
+
+
+<% @data.each do |data| %>       
+	<%= form_with model:@story, url:'/change_stories' do |f|  %>	
+		<b><%= data.title %></b>
+		<%= simple_format(data.content) %>  
+		<%= hidden_field_tag(:id, data.id) %>
+		<%= f.submit "Change" %>
+	<% end %>
+<% end %>
+
+
+
+
+<%= form_with model:@story, url:'/submit_story' do |f|  %>
+	<%= f.label :title %>   </br> 
+	<%= f.text_field :title, value: $story_title %> </br> 
+
+  	<%= f.label :content %>           </br>
+	<%= f.text_area(:content, size: '50x10' , value: $story_description) %>        </br>
+
+	<%= f.submit "Submit" %>
+<% end %>
+
+</div>

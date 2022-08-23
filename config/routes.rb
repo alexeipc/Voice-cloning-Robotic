@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
 
   get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'  
+  post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   
   get '/register' => 'users#register'
@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   delete '/record' => 'dashboard#delete_voice'
   post '/change_user_password' => 'dashboard#change_password'
   post '/change_user_infor' => 'dashboard#change_infor'
+
+  post '/submit_story' => 'stories#submit'
+  get '/stories' => 'stories#index'
+  post '/change_stories'=> 'stories#change'
 
   get '/read/' => 'reader#default'
   get '/read/:story' => 'reader#index'
