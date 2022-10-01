@@ -51,6 +51,11 @@ class StoriesController < ApplicationController
 			s = params[:content]
 			s = Html2Text.convert(s)
 
+			s = s.gsub(".","\n")
+			s = s.gsub(",","\n")
+			s = s.gsub(":","\n")
+			s = s.gsub("-","\n")
+			s = s.gsub('"',"")
 
 			p "-----------------"
 			p s
@@ -58,7 +63,7 @@ class StoriesController < ApplicationController
 			p "-------------------"
 
 			req = @@Resource["story-#{@story[:id]}"]
-			#r = req.put({"title": @story[:title], "content": s})
+			
 			req.put({"title": @story[:title], "content": s}.to_json, {content_type: :json, accept: :json})
 
 			redirect_to stories_path
