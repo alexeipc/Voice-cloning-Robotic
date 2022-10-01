@@ -3,6 +3,7 @@ require 'html2text'
 class StoriesController < ApplicationController
 	$story_title
 	$story_description
+	
 
 	def index
 		if (session[:admin_id] != -1)
@@ -34,6 +35,8 @@ class StoriesController < ApplicationController
 		redirect_to stories_path
 	end
 
+
+
 	def submit
 
 		if session[:change_story_id]
@@ -45,16 +48,20 @@ class StoriesController < ApplicationController
 		@story[:title] = params[:title]
 		@story[:content] = params[:content]
 
+		
+
 		if @story.save
 			session.delete(:change_story_id)
 
 			s = params[:content]
 			s = Html2Text.convert(s)
 
-			s = s.gsub(".","\n")
-			s = s.gsub(",","\n")
-			s = s.gsub(":","\n")
-			s = s.gsub("-","\n")
+			split_text_endl_array = ['.',',',':',";",'!','?','-']
+			
+			split_text_endl_array.each do  |ch|
+				#p ch
+				s = s.gsub(ch,"\n")
+			end
 			s = s.gsub('"',"")
 
 			p "-----------------"
